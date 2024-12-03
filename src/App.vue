@@ -24,6 +24,7 @@ import { useStore } from 'vuex'
 
 // const products = ref()
 const store = useStore()
+
 // const selectedProduct = ref()
 
 // function fetchAllProducts() {
@@ -82,9 +83,9 @@ const store = useStore()
 //     })
 // }
 
-onMounted(() => {})
-
-console.log(store)
+onMounted(() => {
+  store.commit('fetchAllProducts')
+})
 </script>
 
 <style scoped>
