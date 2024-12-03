@@ -6,16 +6,21 @@ export default createStore({
     products: [],
   },
   mutations: {
-    async fetchAllProducts() {
+    setProducts(state, products) {
+      state.products = products
+    },
+  },
+  actions: {
+    async fetchAllProducts({ commit }) {
       try {
         const response = await axios.get('products')
-        this.products = response.data
+        const products = await response.data
+        commit('setProducts', products)
       } catch (error) {
         console.log('Erro ao buscar produtos', error)
       }
-      console.log('Produtos buscados', this.products)
+      console.log('Produtos buscados', this.state.products)
     },
   },
-  actions: {},
   getters: {},
 })
