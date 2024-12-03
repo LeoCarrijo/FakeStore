@@ -1,10 +1,6 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
   <header>
+    <h1>{{ $store.state.user.email }}</h1>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
@@ -19,6 +15,20 @@ import HelloWorld from './components/HelloWorld.vue'
 
   <RouterView />
 </template>
+
+<script>
+import HelloWorld from './components/HelloWorld.vue'
+
+export default {
+  name: 'App',
+  components: {
+    HelloWorld,
+  },
+  created() {
+    console.log(this.$store.state.user)
+  },
+}
+</script>
 
 <style scoped>
 header {
