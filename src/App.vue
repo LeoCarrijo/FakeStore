@@ -20,10 +20,10 @@ import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 // import axios from 'axios'
 import { /*ref,*/ onMounted } from 'vue'
-import { useStore } from 'vuex'
+// import { useStore } from 'vuex'
 
 // const products = ref()
-const store = useStore()
+// const store = useStore()
 
 // const selectedProduct = ref()
 
@@ -83,9 +83,7 @@ const store = useStore()
 //     })
 // }
 
-onMounted(() => {
-  store.commit('fetchAllProducts')
-})
+onMounted(() => {})
 </script>
 
 <style scoped>
