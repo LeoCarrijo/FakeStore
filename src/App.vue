@@ -18,69 +18,10 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
-// import axios from 'axios'
 import { onMounted } from 'vue'
 import { useStore } from 'vuex'
 
 const store = useStore()
-
-// const selectedProduct = ref()
-
-// function fetchAllProducts() {
-//   axios
-//     .get('products')
-//     .then((response) => {
-//       products.value = response.data
-//     })
-//     .catch((error) => {
-//       console.log('Erro ao buscar produtos', error)
-//     })
-//   console.log('Produtos buscados', products)
-// }
-
-// function fetchProduct(id) {
-//   axios
-//     .get(`products/${id}`)
-//     .then((response) => {
-//       selectedProduct.value = response.data
-//     })
-//     .catch((error) => {
-//       console.log(`Erro ao buscar produto ${id}`, error)
-//     })
-// }
-
-// function updateProduct(id, product) {
-//   axios
-//     .patch(`products/${id}`, product)
-//     .then((response) => {
-//       console.log('Produto atualizado', response.data)
-//     })
-//     .catch((error) => {
-//       console.log(`Erro ao atualizar produto ${id}`, error)
-//     })
-// }
-
-// function addProduct(product) {
-//   axios
-//     .post('products', product)
-//     .then((response) => {
-//       console.log('Produto adicionado', response.data)
-//     })
-//     .catch((error) => {
-//       console.log('Erro ao adicionar produto', error)
-//     })
-// }
-
-// function deleteProduct(id) {
-//   axios
-//     .delete(`products/${id}`)
-//     .then((response) => {
-//       console.log('Produto deletado', response.data)
-//     })
-//     .catch((error) => {
-//       console.log(`Erro ao deletar produto ${id}`, error)
-//     })
-// }
 
 onMounted(() => {
   store.dispatch('fetchAllProducts')
