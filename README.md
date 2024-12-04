@@ -1,35 +1,29 @@
-# FakeStore
+# FakeStore 🏪
 
-This template should help get you started developing with Vue 3 in Vite.
+Este é um projeto feito para o trabalho do 2ºBimestre do 5ºSemestre do Fatec na matéria de Programação Script.
 
-## Recommended IDE Setup
+Este projeto é um site feito com Vue 3 que faz diversos CRUDs com os dados fornecidos pela api _*["FakeStore"]*_(<https://fakestoreapi.com/>)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Funcionalidade ✨
 
-## Customize configuration
+Por conta do atraso no desenvovlimento do projeto, foi pessível desenvolver apenas a página de login e a listagem de produtos e nessa página de produtos foi possivel criar o método de adicionar produtos
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## Executar Site 🖥️
 
-## Project Setup
+### Clonar Projeto 🐈‍⬛
+
+```sh
+git clone https://github.com/LeoCarrijo/FakeStore
+```
+
+### Instalar Dependências 📦
 
 ```sh
 pnpm install
 ```
 
-### Compile and Hot-Reload for Development
+### Rodar Projeto ⚙️
 
 ```sh
 pnpm dev
-```
-
-### Compile and Minify for Production
-
-```sh
-pnpm build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
 ```
