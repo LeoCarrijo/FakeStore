@@ -12,11 +12,18 @@
         {{ category }}
       </option>
     </select>
+    <div>
+      <h3 class="filtro__valores__titulo">Ordenar por Valor:</h3>
+      <input v-model="selectedValue" type="radio" name="filtro__valor" id="desc" value="desc" />
+      <label for="desc">Decrescente</label>
+      <input v-model="selectedValue" type="radio" name="filtro__valor" id="asc" value="asc" />
+      <label for="asc">Ascendente</label>
+    </div>
   </section>
   <ul class="lista__produtos">
     <li
       class="item__produto"
-      v-for="product in selectedProducts"
+      v-for="product in sortedProducts"
       :key="product.id"
       @click="expandProduct(product)"
     >
@@ -40,11 +47,19 @@ import { ref, computed } from 'vue'
 const allProducts = computed(() => store.state.products)
 const productsCategories = computed(() => store.state.products_categories)
 const selectedCategory = ref('all')
+const selectedValue = ref('desc')
 const selectedProducts = computed(() => {
   if (selectedCategory.value === 'all') {
     return allProducts.value
   }
   return allProducts.value.filter((product) => product.category === selectedCategory.value)
+})
+const sortedProducts = computed(() => {
+  const products = [...selectedProducts.value]
+  if (selectedValue.value === 'desc') {
+    return products.sort((a, b) => b.price - a.price)
+  }
+  return products.sort((a, b) => a.price - b.price)
 })
 
 function expandProduct(product) {
@@ -53,6 +68,11 @@ function expandProduct(product) {
 </script>
 
 <style scoped>
+.filtro__valores__titulo {
+  padding: 10px;
+  display: inline;
+}
+
 .item__produto {
   cursor: pointer;
   border: 1px solid #ccc;
