@@ -16,6 +16,12 @@ export default createStore({
     setProductsCategories(state, categories) {
       state.products_categories = categories
     },
+    addProduct(state, product) {
+      state.products.push({
+        ...product,
+        expanded: false,
+      })
+    },
   },
   actions: {
     async fetchAllProducts({ commit }) {
@@ -27,6 +33,18 @@ export default createStore({
         console.log('Erro ao buscar produtos', error)
       }
       console.log('Produtos buscados', this.state.products)
+    },
+    async addProduct({ commit }, product) {
+      try {
+        const response = await axios.post('products', product)
+        const newProduct = await response.data
+        commit('addProduct', newProduct)
+        console.log('Produto adicionado', newProduct)
+        return newProduct
+      } catch (error) {
+        console.log('Erro ao adicionar produto', error)
+        throw error
+      }
     },
     async fetchAllProductsCategories({ commit }) {
       try {

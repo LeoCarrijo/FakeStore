@@ -1,5 +1,6 @@
 <template>
   <h1 class="titulo">Produtos</h1>
+  <button class="adicionar__produto" @click="openModal()">Adicionar Produto</button>
   <section class="filtros">
     <select v-model="selectedCategory" class="filtro__categorias">
       <option value="all">Todas as categorias</option>
@@ -38,11 +39,48 @@
       </section>
     </li>
   </ul>
+  <div v-show="showModal" class="modal__produto">
+    <div class="modal__conteudo">
+      <h2>{{ editingProduct ? 'Editar Produto' : 'Novo Produto' }}</h2>
+      <form @submit.prevent="saveProduct()">
+        <div class="container__input">
+          <label for="title">Título</label>
+          <input type="text" name="title" id="title" />
+        </div>
+        <div class="container__input">
+          <label for="price">Valor</label>
+          <input type="number" step="0.01" name="price" id="price" />
+        </div>
+        <div class="container__input">
+          <label for="category">Categoria</label>
+          <select name="newProductCategory" id="newProductCategory">
+            <option v-for="category in productsCategories" :key="category" :value="category">
+              {{ category }}
+            </option>
+          </select>
+        </div>
+        <div class="container__input">
+          <label for="description">Descrição</label>
+          <textarea
+            name="description"
+            id="description"
+            rows="5"
+            cols="33"
+            placeholder="Escreva aqui a descrição do produto"
+          ></textarea>
+        </div>
+        <div class="modal__acoes">
+          <button @click="showModal = false">Cancelar</button>
+          <input type="submit" value="Salvar" />
+        </div>
+      </form>
+    </div>
+  </div>
 </template>
 
 <script setup>
 import store from '@/store'
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
 
 const allProducts = computed(() => store.state.products)
 const productsCategories = computed(() => store.state.products_categories)
@@ -61,6 +99,54 @@ const sortedProducts = computed(() => {
   }
   return products.sort((a, b) => a.price - b.price)
 })
+const editingProduct = ref(false)
+const showModal = ref(false)
+const newProduct = ref(null)
+const formProduct = reactive({
+  title: '',
+  price: 0,
+  category: '',
+  description: '',
+  image: '',
+})
+
+function openModal(product = null) {
+  formProduct.value = product
+  if (product) {
+    formProduct.value = { ...product }
+  } else {
+    formProduct.value = {
+      title: '',
+      price: 0,
+      category: '',
+      description: '',
+      image: '',
+    }
+  }
+  showModal.value = true
+}
+
+async function saveProduct() {
+  formProduct.value = {
+    title: document.getElementById('title').value,
+    price: document.getElementById('price').value,
+    category: document.getElementById('newProductCategory').value,
+    description: document.getElementById('description').value,
+    image: 'https://via.placeholder.com/150',
+  }
+  newProduct.value = { ...formProduct.value }
+  try {
+    console.log('formulario', formProduct.value)
+    console.log('produto novo: ', newProduct.value)
+    const response = await store.dispatch('addProduct', newProduct.value)
+    alert('Produto salvo com sucesso!')
+    console.log(response)
+  } catch (error) {
+    alert('Erro ao salvar produto!')
+    console.error(error)
+  }
+  showModal.value = false
+}
 
 function expandProduct(product) {
   product.expanded = !product.expanded
