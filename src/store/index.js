@@ -7,7 +7,10 @@ export default createStore({
   },
   mutations: {
     setProducts(state, products) {
-      state.products = products
+      state.products = products.map((product) => ({
+        ...product,
+        expanded: false,
+      }))
     },
   },
   actions: {
