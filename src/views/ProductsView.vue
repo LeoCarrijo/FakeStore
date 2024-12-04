@@ -1,9 +1,22 @@
 <template>
   <h1 class="titulo">Produtos</h1>
+  <section class="filtros">
+    <select v-model="selectedCategory" class="filtro__categorias">
+      <option value="all">Todas as categorias</option>
+      <option
+        class="opt__categoria"
+        v-for="category in productsCategories"
+        :key="category"
+        :value="category"
+      >
+        {{ category }}
+      </option>
+    </select>
+  </section>
   <ul class="lista__produtos">
     <li
       class="item__produto"
-      v-for="product in products"
+      v-for="product in selectedProducts"
       :key="product.id"
       @click="expandProduct(product)"
     >
@@ -22,9 +35,17 @@
 
 <script setup>
 import store from '@/store'
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 
-const products = computed(() => store.state.products)
+const allProducts = computed(() => store.state.products)
+const productsCategories = computed(() => store.state.products_categories)
+const selectedCategory = ref('all')
+const selectedProducts = computed(() => {
+  if (selectedCategory.value === 'all') {
+    return allProducts.value
+  }
+  return allProducts.value.filter((product) => product.category === selectedCategory.value)
+})
 
 function expandProduct(product) {
   product.expanded = !product.expanded
