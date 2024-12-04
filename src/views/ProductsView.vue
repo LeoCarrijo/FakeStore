@@ -23,7 +23,7 @@
       {{ product.title }}
       <section v-show="product.expanded" class="container__produto">
         <ul class="detalhes__produto">
-          <li>{{ product.price }}</li>
+          <li>US$ {{ product.price }}</li>
           <li>{{ product.category }}</li>
           <li>{{ product.description }}</li>
           <img class="imagem__produto" :src="product.image" alt="Imagem do produto" />
