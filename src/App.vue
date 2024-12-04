@@ -13,6 +13,7 @@ const store = useStore()
 
 onMounted(() => {
   store.dispatch('fetchAllProducts')
+  store.dispatch('fetchAllProductsCategories')
 })
 </script>
 
